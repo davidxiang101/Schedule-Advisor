@@ -70,14 +70,14 @@ pip install -r requirements.txt
 
 ## Database Migration
 
-\`\`\`bash
+```bash
 # Create the database in PostgreSQL
 createdb your_database_name
 # Run migrations
 python manage.py migrate
 # Create superuser
 python manage.py createsuperuser
-\`\`\`
+```
 
 ---
 
