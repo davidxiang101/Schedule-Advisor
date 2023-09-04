@@ -1,0 +1,132 @@
+{% load socialaccount %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+  <title>Scheduler</title>
+
+  <!-- Bootstrap core CSS -->
+  {% load static %}
+  {# Load the tag library #}
+  {% load bootstrap5 %}
+
+  {# Load CSS and JavaScript #}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  
+  <link href="{% static 'cal/calStyle.css' %}" rel="stylesheet">
+
+  <style>
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.6/index.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.6/main.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.6/main.min.css"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.6/main.min.js.map"></script>
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.6/index.global.min.js'></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        hiddenDays: [0, 6],
+        slotMinTime: "08:00:00",
+        slotMaxTime: "20:00:00",
+        allDaySlot: false,
+        headerToolbar: {
+          left: '',
+          center: '',
+          right: ''
+        },
+        events: [
+          {% for event in evs %}
+          {
+          title: '{{ event.title }}',
+          start: '{{ event.start }}',
+          end: '{{ event.end }}',
+          color: '{{ event.color }}',
+        },
+        {% endfor %}
+        ],
+      expandRows: true,
+      dayHeaderFormat: { weekday: 'long' },
+      visibleRange: {
+      start: '2020-05-01',
+      end: '2020-05-05',
+      nowIndicator: false
+    }
+      });
+
+    calendar.render();
+    });
+
+  </script>
+  
+</head>
+
+{% include 'nav.html' %}
+
+<body class="text-center" style="margin-bottom:100px;">
+  
+
+  <div class="container d-flex justify-content-center">
+    {% if not schedules %}
+        <p>You have no schedules, please create one in the tools page</p>
+        {% else %}
+  <table class="justify-content-center spec-table">
+      <thead>
+          <tr>
+              <th><em>Schedule Name</em></th>
+              <th><em></em></th>
+          </tr>
+      </thead>
+      {% for each in schedules %}
+      <tr>
+          <td>
+              <p>{{ each.name }}</p>
+          </td>
+          <td>
+            <a class="btn new-button" style="height: auto; width: auto; font-size: medium;" href="{% url 'display' each.id %}" role="button">Display</a>
+          </td>
+      </tr>
+      {% endfor %}
+  </table>
+  {% endif %}
+
+    </div>
+    </div>
+    {% if sch_name %}
+    <h1 class="text-center mt-5 pt-3">{{sch_name}}</h1>
+    {% endif %}
+    <div class="container mt-3">
+      <div id='calendar'></div>
+    </div>
+
+    <!--div>{{ evs }}</div-->
+
+    <!--ul class="list-cart">
+      <table class="mt-5">
+        {% for each in schedules %}
+        <tr>
+          <td class="p-2">
+            {{ each.name }}
+          </td>
+          <td>
+            <a class="btn btn-primary btn-sm" href="{% url 'display' each.id %}" role="button">Display</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </ul-->
+</body>
+
+</html>

@@ -1,0 +1,256 @@
+body {
+  background-color: #f5f5f5;
+  background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+}
+#message-wrapper{
+  background-color:rgba(254, 254, 254, 0.486);
+  border-radius: 20pt;
+}
+h4{
+  color:#4c5156;
+
+}
+p{
+margin:0;
+padding:0;
+}
+
+.sent{
+margin:0;
+padding:0;
+text-align:end;
+
+}
+
+.message{
+  border-radius: 20pt;
+  padding: 0;
+  margin: 0;
+
+}
+.message card-body{
+  margin: 0;
+  padding: 0;
+
+}
+
+.custom-scrollbar-js,
+.custom-scrollbar-css {
+  margin-top:5%;
+  height: 75vh;
+
+}
+
+
+/* Custom Scrollbar using CSS */
+.custom-scrollbar-css {
+  overflow-y: scroll;
+}
+
+/* scrollbar width */
+.custom-scrollbar-css::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* scrollbar track */
+.custom-scrollbar-css::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+/* scrollbar handle */
+.custom-scrollbar-css::-webkit-scrollbar-thumb {
+  border-radius: 1rem;
+  background-image: linear-gradient(to bottom, hsl(191, 97%, 69%) 0%, #0d6efd 100%);
+}
+
+
+
+
+.active {
+  background-color: #eee;
+}
+.scrollable {
+  min-height: 80vh;
+  max-height: 85vh;
+  overflow: auto;
+  
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollable .message-control {
+  margin-top: auto !important;
+}
+
+.boof {
+  border: 4px solid hsl(196, 100%, 50%);
+  border-radius: 20pt;
+
+}
+
+.othercircle{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color:  #a88aff;
+}
+.mycircle{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: #59a7ec;
+
+}
+.newmessagecircle{
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color:  #3dbdfd;
+ 
+}
+.newmessage2{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: #9041f7;
+
+}
+
+
+.scrollable .alert {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#send-message-btn {
+  cursor: pointer;
+}
+
+.mycard {
+  background-color: #ffffff;
+  border-color: hsl(196, 100%, 50%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  border-radius: 20pt;
+  border-width: 12px;
+  width:80%;
+
+
+}
+
+
+
+
+h1 {
+  font-weight: bold;
+  color: #3c3c3c;
+}
+
+.card-title {
+  font-size: 24px;
+  color: #3c3c3c;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 18px;
+  color: #6c757d;
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  color: #ffffff;
+}
+
+
+.hero {
+  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+  height: 80vh;
+}
+
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+}
+
+.hero-text h1 {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.hero-text p {
+  font-size: 1.5rem;
+}
+
+.box {
+  position: relative;
+  background-color: #bae0f5;
+  border: 1px solid #5f6ec1;
+  border-radius: 5px;
+  padding: 2rem;
+  text-align: center;
+  width: 750px;
+  height: 200px;
+  text-align: center; 
+  position: absolute; 
+  top: 70%;
+  left: 50%;
+  transform:
+  translate(-50%, -50%);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+
+/* STYLE FOR BUTTON */
+.custom-button {
+  align-items: center;
+  appearance: none;
+  background-color: #4f62ce;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#959cc3 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+}
+
+.custom-button:focus {
+  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+.custom-button:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.custom-button:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
+}

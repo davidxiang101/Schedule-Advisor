@@ -1,0 +1,63 @@
+{% load socialaccount %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Scheduler</title>
+
+    <!-- Bootstrap core CSS -->
+    {% load static %}
+    {# Load the tag library #}
+    {% load bootstrap5 %}
+
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{% static 'login/homeStyle.css' %}">
+</head>
+
+{% include 'nav.html' %}
+
+<body class="text-center" style="margin-bottom:50px;">
+    <div class="jumbotron feature">
+        <div class="container">
+            <h1>BTS (Better Than SIS) Scheduler</h1>
+        </div>
+    </div>
+    <div class="cover-container d-flex h-80 p-0 mx-auto flex-column justify-content-center">
+        <main role="main" class="inner cover d-flex align-items-center h-50">
+            <div class="container" style="padding-bottom: 100px">
+                <p class="lead mt-1 feature2">Welcome to BTS!<br>This webpage is built to help students and advisors<br>build lasting, comprehensive academic schedules. Let's get scheduling.</p>
+                <div class="container d-flex justify-content-center mt-5">
+                    <div class="col-sm">
+                        <img src="{% static "images/student.png" %}" width="100" height="100">
+                        <p style="font-size: 30"><b>For Students</b></p>
+                        <p>Search for classes, create and compare schedules</p>
+                        <br>
+                        <form action="{% provider_login_url 'google' %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn login-button" type="submit">Login</button>
+                        </form>
+                    </div>
+                    <div class="col-sm">
+                        <img src="{% static "images/teacher.jpeg" %}" width="100" height="100">
+                        <p style="font-size: 30"><b>For Advisors</b></p>
+                        <p>Interact with students, easily review schedules</p>
+                        <br>
+                        <form action="{% provider_login_url 'google' %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn login-button" type="submit">Login</button>
+                        </form>
+                    </div>
+                  </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+{% load socialaccount %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Scheduler</title>
+
+    <!-- Bootstrap core CSS -->
+    {% load static %}
+    {# Load the tag library #}
+    {% load bootstrap5 %}
+
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    <!-- Custom styles for this template -->
+
+    <link href="{% static 'login/styles.css' %}" rel="stylesheet">
+</head>
+
+{% include 'nav.html' %} 
+
+<body class="text-center" style="margin-bottom:100px;">
+    <div class="cover-container d-flex h-100 p-0 mx-auto flex-column justify-content-center">
+
+        <main role="main" class="inner cover d-flex align-items-center h-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7 mx-auto">
+                        <h1 class="text-center my-4">Student Profile</h1>
+
+                        <div class="card profile-card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ students.0.firstname }} {{ students.0.lastname }}</h5>
+                                <p class="card-text text-start">Email: {{ user.email }}</p>
+                                <p class="card-text text-start">Username: {{ user.username }}</p>
+                                <p class="card-text text-start">Student ID: {{ students.0.studentID }}</p>
+                                <p class="card-text text-start">Major: {{ students.0.major }}</p>
+                                <a href="{% url 'edit_profile' %}" class="btn custom-button">Edit Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+
+</body>
+</html>

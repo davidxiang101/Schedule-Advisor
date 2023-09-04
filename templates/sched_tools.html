@@ -1,0 +1,336 @@
+{% load socialaccount %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Scheduler</title>
+
+    <!-- Bootstrap core CSS -->
+    {% load static %}
+    {# Load the tag library #}
+    {% load bootstrap5 %}
+
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    <link href="{% static 'tools/toolStyle.css' %}" rel="stylesheet">
+</head>
+
+{% include 'nav.html' %}
+
+{% if advisorCheck %}
+
+<body>
+    <div class="jumbotron feature">
+        <div class="container">
+            <h1>Schedule Tools</h1>
+            <p>View, approve, and reject schedules that students have sent in for review.</p>
+        </div>
+    </div>
+    <ul style="list-style: none;">
+        {% if schedAdvisor %}
+        <table class="justify-content-center">
+            <thead>
+                <tr>
+                    <th><em>Student</em></th>
+                    <th><em>Schedule Name</em></th>
+                    <th><em>Courses</em></th>
+                    <th><em>Actions</em></th>
+                </tr>
+            </thead>
+            {% for each in schedAdvisor %}
+
+            <tr>
+                <td>
+                    {{each.studentFirstName}} {{each.studentLastName}}
+                </td>
+                <td>
+                    {{each.name}}
+                </td>
+                <td>
+                    {% for key, value in allClasses.items %}
+                    {% if key == each %}
+                    {% for every in value %}
+                    - {{ every.subject }} {{ every.catalog_nbr }}
+                    <br>
+                    {% endfor %}
+                    {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <a style="background-color: green; height: auto;" class="btn new-button"
+                        href="approve/{{ each.id }}" role="button">Approve</a>
+                    <a style="background-color: firebrick; height: auto;" class="btn new-button"
+                        href="reject/{{ each.id }}" role="button">Reject</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <h3 class="text-center my-4">There are currently no schedules available for review.</h3>
+        {% endif %}
+    </ul>
+</body>
+{% else %}
+
+<body class="text-center">
+    <div class="jumbotron feature">
+        <div class="container">
+            <h1>Schedule Tools</h1>
+            <p>Create, edit, send, and monitor your schedules!</p>
+        </div>
+    </div>
+    <main class="my-5">
+        <div class="container">
+            <section class="text-center">
+                <div class="row">
+                    <div style="display: flex; justify-content: center; padding-bottom:50px;">
+                        <form id="schedForm" method="POST">
+                            {% csrf_token %}
+                            <h4>Create a New Schedule</h4>
+                            <div class="input-group">
+                                <div class="field field_v1">
+                                    <input type="text" name="name" id="schedule-name" class="field__input form-control"
+                                        placeholder="e.g. Fall23 Schedule" required >
+                                    <span class="field__label-wrap" aria-hidden="true">
+                                        <span class="field__label">New Schedule Name</span>
+                                    </span>
+                                </div>
+                                <button formaction="{% url 'create-schedule' %}" class="btn new-button"
+                                    type="submit">Create</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+
+
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="card">
+                            <h2 class="mb-4" style="padding-top: 20px">
+                                <strong>
+                                    {% if schedules %}
+                                    {% if sched_select %}
+                                    {{ request.session.sch_name }}
+                                    Classes
+                                    {% else %}
+                                    <p style="color:red;">No Schedule Selected</p>
+                                    {% endif %}
+                                    {% else %}
+                                    Schedules
+                                    {% endif %}
+                                </strong>
+                            </h2>
+                            
+
+                            <div class="card-body">
+                                <form action="" method="POST">
+                                    {% csrf_token %}
+                                    <ul class="cartlist">
+                                        {% if schedules%}
+                                        <div style="display: flex; justify-content: center;">
+                                                <select name="schedule" id="schedule-select" class="btn btn-default dropdown-toggle"
+                                                    data-toggle="dropdown" style="height:48px;">
+                                                    {% for each in schedules %}
+                                                    {% if each.name == request.session.sch_name %}
+                                                    <option value="{{ each.name }}" selected>{{ each.name }}</option>
+                                                    {% else %}
+                                                    <option value="{{ each.name }}">{{ each.name }}</option>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </select>
+                                                <button formaction="{% url 'select-from-cart' %}" class="btn new-button"
+                                                    style="height:48px;" type="submit">Select</button>
+                                        </div>
+                                        
+                                        {% if sched_select %}
+                                        {% if request.session.classes %}
+                                        <table class="justify-content-center">
+                                            <thead>
+                                                <tr>
+                                                    <th><em>Course</em></th>
+                                                    <th><em>Times</em></th>
+                                                    <th><em></em></th>
+                                                </tr>
+                                            </thead>
+                                            {% for each in request.session.classes %}
+                                            <tr>
+                                                <td>
+                                                    {{ each.subject }} {{ each.catalog_nbr }}
+                                                </td>
+                                                <td>
+                                                    {{ each.times}}
+                                                </td>
+                                                <td>
+                                                    <a style="float: right; background-color: firebrick; height: auto;"
+                                                        class="btn new-button"
+                                                        href="{% url 'remove-from-schedule' each.id %}"
+                                                        role="button">X</a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </table>
+                                        {% else %}
+                                        <div style="padding-top: 20px;" class="justify-content-center">
+                                            <h7 class="mb-4" style="padding-top: 20px"><strong>There are Currently No Classes Added to this Schedule</strong></h7>
+                                        </div>
+                                        {% endif %}
+                                        {% endif %}
+                                        {% else %}
+                                            <p><h5 class="mb-4" style="padding-top: 20px"><strong>Created Schedules Will Display Their Classes Here</strong></h5></p>
+                                        {% endif %}
+                                    </ul>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-4">
+                        <form id="page-form" method="POST">
+                            {% csrf_token %}
+                            <div class="card">
+                                <h2 class="mb-4" style="padding-top: 20px"><strong>Class Cart</strong></h2>
+                                <div class="card-body">
+
+                                    <ul class="cartlist" style="list-style: none;">
+                                        {% if user_cart %}
+                                        <table class="justify-content-center">
+                                            <thead>
+                                                {% if messages %}
+                                                {% for message in messages %}
+                                                {% if "schedule"|lower in message|lower %}
+                                                <div class="alert alert-danger alert-dismissible fade show"
+                                                    role="alert">
+                                                    <strong>{{message}}</strong>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                {% endif %}
+                                                {% endfor %}
+                                                {% endif %}
+                                                <tr>
+                                                    {% if schedules %}
+                                                    {% if sched_select %}
+                                                    <th><em></em></th>
+                                                    {% endif %}
+                                                    {% endif %}
+                                                    <th><em>Course</em></th>
+                                                    <th><em>Times</em></th>
+                                                    <th><em></em></th>
+                                                </tr>
+                                            </thead>
+                                            {% for each in user_cart %}
+                                            <tr>
+                                                {% if schedules %}
+                                                {% if sched_select %}
+                                                <td>
+                                                    <input class="checkbox" type="checkbox" id="{{each.id}}"
+                                                        name="check{{each.id}}">
+                                                </td>
+                                                {% endif %}
+                                                {% endif %}
+                                                <td>
+                                                    {{ each.subject }} {{ each.catalog_nbr }}
+                                                </td>
+                                                <td>
+                                                    {{ each.times}}
+                                                </td>
+                                                <td>
+                                                    <a style="float: right; background-color: firebrick; height: auto;"
+                                                        class="btn new-button"
+                                                        href="{% url 'delete-from-cart' each.id %}" role="button">X</a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </table>
+                                        <div style="padding-top: 10px;" class="justify-content-center">
+                                            {% if schedules %}
+                                            {% if sched_select %}
+                                            <button formaction="{% url 'add-to-schedule' %}" class="btn new-button"
+                                                type="submit">Add to Schedule</button>
+                                            {% endif %}
+                                            {% endif %}
+                                        </div>
+                                        {% else %}
+                                        <h5 class="mb-4" style="padding-top: 20px"><strong>Classes Added to the Cart Will Be Displayed Here</strong></h5>
+                                        <h7 class="mb-4" style="padding-top: 20px">(Classes Can be Added from the Class Search Page)</h7>
+                                        <p><a class="btn new-button mt-2" href="/search" role="button">Search for Classes</a></p>
+                                        {% endif %}
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="card cover-container d-flex h-10 p-0 mx-auto flex-column justify-content-center">
+                        <h2 class="mb-4" style="padding-top: 20px"><strong>All Schedules</strong></h2>
+                        <div class="card-body">
+                            <ul class="cartlist" style="list-style: none;">
+                                {% if schedules%}
+                                <table class="justify-content-center">
+                                    <thead>
+                                        <tr>
+                                            <th><em>Schedule Name</em></th>
+                                            <th><em>Approval Status</em></th>
+                                            <th><em>Send for Approval</em></th>
+                                            <th><em></em></th>
+                                        </tr>
+                                    </thead>
+                                    {% for each in schedules %}
+                                    <tr>
+                                        <td>
+                                            {{each.name}}
+                                        </td>
+                                        <td>
+                                            {% if each.approved and not each.sent%}
+                                            <p style="color:green">APPROVED</p>
+                                            {% elif each.rejected and not each.sent%}
+                                            <p style="color:firebrick">REJECTED</p>
+                                            {% elif each.sent %}
+                                            <p style="color:goldenrod"> PENDING </p>
+                                            {% else %}
+                                            <p style="color:goldenrod"> NOT SENT </p>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if each.sent %}
+                                            <a style="background-color:darkseagreen; height: auto;"
+                                                class="btn new-button" href="{% url 'toggle-send-schedule' each.id%}"
+                                                role="button">Unsend</a>
+                                            {% else %}
+                                            <a style="background-color: green; height: auto;" class="btn new-button"
+                                                href="{% url 'toggle-send-schedule' each.id%}"
+                                                role="button">&nbsp;&nbsp;Send&nbsp;&nbsp;</a>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a style="background-color:firebrick; height: auto;" class="btn new-button"
+                                                href="{% url 'delete-schedule' each.id %}" role="button">X</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                                {% else %}
+                                <h5 class="mb-4" style="padding-top: 20px"><strong>All Your Schedules along with Their Approval/Rejected Status Will Be Displayed Here</strong></h5>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    {% endif %}
+
+</body>
+
+</html>

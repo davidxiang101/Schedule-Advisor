@@ -1,0 +1,54 @@
+<div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0 scrollable " >
+  {% if advisorCheck %}
+  <h4 class="font-weight-bold mb-3 align-self-center text-center">
+     Your Student Contacts 
+  </h4>
+  {% else %}
+  <h4 class="font-weight-bold mb-3 align-self-center text-center">
+    Chat With Your Advisor
+ </h4>
+ {% endif %}
+ 
+
+<div class="mycard card align-self-center align-items-center m-0 p-0">
+  <div class="card-body m-0 p-0">
+   
+      {% for user in users %}
+
+      <!--user url cache-->
+      {% url 'chat:chat_page' user.username as user_url %}
+      <div
+        class="d-flex flex-column m-0 p-0"
+      >
+        <a
+          href="{% url 'dm:chat_page' user.username %}"
+          style= "text-decoration: none;"
+        >
+          <div class="boof d-flex mb-1 mt-1 p-1 m-0 ">
+            <span class="othercircle circle align-self-center me-2 m-1"></span>
+            
+            <p class=" align-self-center fw-bold me-4" >{{user.get_full_name}}</p>
+            <!---
+            <div class="ms-auto align-self-center p-1 ">
+              
+              <span class="badge bg-secondary">!</span>
+              
+            </div>
+            -->
+          </div>
+          
+        </a>
+      </div>
+      {% endfor %}
+     
+    </div>
+  </div>
+</div>
+
+{% if user_object %}
+<!--other-user-id-->
+{{user_object.id|json_script:'other-user-id'}}
+<!--current-username-->
+{{request.user.username|json_script:'current-username'}}
+<!---->
+{% endif %}

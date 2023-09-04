@@ -1,0 +1,269 @@
+:root {
+  --main-bg: rgb(238, 238, 238);
+  --stage-time-bg: rgba(217, 217, 217);
+
+  --blue-slot-bg: rgba(52, 129, 174, 0.3);
+  --blue-slot-text: rgba(52, 129, 174, 1);
+
+  --green-slot-bg: rgba(49, 223, 118, 0.42);
+  --green-slot-text: rgba(40, 188, 99, 1);
+
+  --red-slot-bg: rgba(223, 49, 49, 0.28);
+  --red-slot-text: rgba(223, 49, 49, 0.75);
+
+  --yellow-slot-bg: rgba(255, 230, 0, 0.3);
+  --yellow-slot-text: rgb(229, 168, 46);
+
+  --break-bg: rgba(83, 83, 83);
+  --break-text: rgba(38, 38, 38, 1);
+
+  --break-time-highlight: rgba(255, 110, 5, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  height: 100%;
+  background: var(--main-bg);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+
+/*********************
+*** GRID STYLING ****/
+/********************/
+
+.main-container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(11, 1fr);
+  gap: 1.5rem;
+}
+
+/*===== TOP STAGES CONTAINER ====*/
+
+.stages-container-row {
+  grid-column: 2 / -1;
+  grid-row: 1 / 2;
+}
+
+.stages {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stage {
+  padding: 3rem 4rem;
+}
+
+.stage,
+.time {
+  background: var(--stage-time-bg);
+  border-radius: 1rem;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+/*===== LEFT TIMING CONTAINER =====*/
+
+.timing-container-column {
+  grid-column: 1 / 2;
+  grid-row: 1 / -1;
+}
+
+.timings {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+
+  background: var(--stage-time-bg);
+  border-radius: 1rem;
+}
+
+/*===== SUBGRID OF OUR MAIN UI =====*/
+
+.subgrid-main-ui {
+  grid-column: 2 / -1;
+  grid-row: 2 / -1;
+
+  display: grid;
+
+  /* Currenlty not supported by Chrome, please check it in Firefox
+     to see the subgrid option*/
+  grid-template-columns: subgrid;
+  grid-template-rows: repeat(10, 1fr);
+  gap: 1rem;
+}
+
+/*===== SLOTS INSIDE SUGBID =====*/
+
+.slot {
+  flex-direction: column;
+  padding: 1rem;
+}
+
+[class^='slot'] {
+  padding-left: 2rem;
+}
+
+.slot,
+.break {
+  border-radius: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* BLUE-BG SLOTS */
+
+.slot:nth-child(1),
+.slot:nth-child(2),
+.slot:nth-child(6) {
+  background: var(--blue-slot-bg);
+}
+
+.slot:nth-child(1) h2,
+.slot:nth-child(2) h2,
+.slot:nth-child(6) h2 {
+  color: var(--blue-slot-text);
+}
+
+.slot:nth-of-type(1) {
+  grid-column: 1 / span 2;
+  grid-row: 1 / 4;
+}
+
+.slot:nth-of-type(2) {
+  grid-column: 1 / 4;
+  grid-row: 5 / 7;
+}
+
+.slot:nth-of-type(6) {
+  grid-column: 1 / 4;
+  grid-row: 8 / 11;
+}
+
+/* GREEN-BG SLOTS */
+
+.slot:nth-child(3),
+.slot:nth-child(7) {
+  background: var(--green-slot-bg);
+}
+
+.slot:nth-child(3) h2,
+.slot:nth-child(7) h2 {
+  color: var(--green-slot-text);
+}
+
+.slot:nth-of-type(3) {
+  grid-column: 3 / 4;
+  grid-row: 1 / 4;
+}
+
+.slot:nth-of-type(7) {
+  grid-column: 4 / 6;
+  grid-row: 9 /11;
+}
+
+/* RED-BG SLOTS */
+
+.slot:nth-of-type(4),
+.slot:nth-of-type(5) {
+  background: var(--red-slot-bg);
+}
+
+.slot:nth-of-type(4) h2,
+.slot:nth-of-type(5) h2 {
+  color: var(--red-slot-text);
+}
+
+.slot:nth-of-type(4) {
+  grid-column: 4 / 6;
+  grid-row: 1;
+}
+
+.slot:nth-of-type(5) {
+  grid-column: 4 / 6;
+  grid-row: 3 / 7;
+}
+
+/* YELLOW-BG SLOTS */
+
+.slot:nth-of-type(8),
+.slot:nth-of-type(9),
+.slot:nth-of-type(10) {
+  background: var(--yellow-slot-bg);
+}
+
+.slot:nth-of-type(8) h2,
+.slot:nth-of-type(9) h2,
+.slot:nth-of-type(10) h2 {
+  color: var(--yellow-slot-text);
+}
+
+.slot:nth-of-type(8) {
+  grid-column: 6 / 8;
+  grid-row: 1 / 7;
+}
+
+.slot:nth-of-type(9) {
+  grid-column: 6 / 8;
+  grid-row: 8 / 11;
+}
+
+/* BREAK-SLOTS */
+
+.break {
+  background: rgba(83, 83, 83, 0.21);
+  align-items: center;
+  font-size: 2rem;
+  color: rgba(38, 38, 38);
+  letter-spacing: 1.3px;
+  font-weight: bold;
+  padding: 0;
+}
+
+.break:nth-of-type(1n) {
+  grid-column: 1 / 4;
+  grid-row: 4 / 5;
+}
+
+.break:nth-of-type(2n) {
+  grid-column: 4 / 6;
+  grid-row: 2 / 3;
+}
+
+.break:nth-of-type(3n) {
+  grid-column: 1 / 8;
+  grid-row: 7 / 8;
+}
+
+/* BREAK-TIME HIGHTLIGHT */
+
+.time:nth-of-type(3),
+.time:nth-of-type(5),
+.time:nth-of-type(8) {
+  background: rgba(255, 110, 5, 0.5);
+}

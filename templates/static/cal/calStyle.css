@@ -1,0 +1,180 @@
+body {
+    background-color: #f5f5f5;
+    background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+    margin-bottom: 500px;
+  }
+  
+
+  h1 {
+    font-weight: bold;
+    color: #3c3c3c;
+  }
+  
+  
+  .btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #ffffff;
+  }
+
+  
+  .calendar {
+    width: 100%;
+    height: 80%;
+    table-layout: fixed ;
+    border-collapse: collapse;
+    border: 2px solid black; 
+    border-radius:.25rem!important
+  }
+  
+  .calendar th,
+  .calendar td {
+    height: 120px;
+    border: 1px transparent;
+    text-align: center;
+    vertical-align: middle;
+    height: 0.8rem;
+    padding: 0 5px 0 5px;
+    font-size: 0.8rem;
+  }
+  
+  .calendar th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    font-size: 0.8rem;
+    height: 0.8rem;
+    vertical-align: top;
+  }
+
+  .calendar tr {
+    height: 0.8rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .class-event {
+    background-color: #6c757d;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 0.8rem;
+    height: 100%;
+
+  }
+  
+  .hero {
+    background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+    height: 80vh;
+  }
+  
+  .hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+  }
+  
+  .hero-text h1 {
+    font-size: 4rem;
+    font-weight: bold;
+  }
+  
+  .hero-text p {
+    font-size: 1.5rem;
+  }
+
+  /* STYLE FOR BUTTON */
+.new-button {
+  align-items: center;
+  appearance: none;
+  background-color: #4f62ce;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#959cc3 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+}
+
+.new-button:focus {
+  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+.new-button:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.new-button:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+
+/* SCHEDULES TABLE */
+p {
+  margin-top: 0;
+  margin-bottom: auto;
+}
+
+.spec-table {
+  font-family: 'Arial';
+  margin: 25px auto;
+  border-collapse: collapse;
+  border: 1px solid #eee;
+  border-bottom: 2px solid #bfd6e3;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.10),
+    0px 10px 20px rgba(0, 0, 0, 0.05),
+    0px 20px 20px rgba(0, 0, 0, 0.05),
+    0px 30px 20px rgba(0, 0, 0, 0.05);
+}
+
+.spec-table tr:hover {
+  background: #f4f4f4;
+}
+
+.spec-table tr:hover td {
+  color: #555;
+}
+
+.spec-table th,
+.spec-table td {
+  color: #999;
+  border: 1px solid #eee;
+  padding: 12px 35px;
+  border-collapse: collapse;
+}
+
+.spec-table th {
+  background: #bfd6e3;
+  color: black;
+  font-size: 20px;
+}
+
+.spec-table th.last {
+  border-right: none;
+}
+
+.fc-day-today
+{
+  background-color:inherit !important;
+}

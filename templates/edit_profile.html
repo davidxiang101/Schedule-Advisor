@@ -1,0 +1,75 @@
+{% load socialaccount %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+  <title>Edit Profile</title>
+
+  <!-- Bootstrap core CSS -->
+  {% load static %}
+  {# Load the tag library #}
+  {% load bootstrap5 %}
+
+  {# Load CSS and JavaScript #}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'login/styles.css' %}" rel="stylesheet">
+</head>
+
+{% include 'nav.html' %} 
+
+<body class="text-center" style="margin-bottom:100px;">
+  <div class="cover-container d-flex h-100 p-0 mx-auto flex-column justify-content-center">
+    <main role="main" class="inner cover d-flex align-items-center h-100">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 mx-auto">
+            <h1 class="text-center my-4">Edit Profile</h1>
+            <div class="card profile-card">
+              <div class="card-body">
+                <form action="save" method="POST"> 
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="first_name" class="form-label float-start">First Name</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ students.0.firstname }}">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="last_name" class="form-label float-start">Last Name</label>
+                        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ students.0.lastname }}">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label float-start">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" disabled>
+                  </div>
+                  <div class="mb-3">
+                    <label for="student_id" class="form-label float-start">Student ID</label>
+                    <input type="text" class="form-control" id="student_id" name="student_id" value="{{ students.0.studentID }}">
+                  </div>
+                  <div class="mb-3">
+                    <label for="major" class="form-label float-start">Major</label>
+                    <input type="text" class="form-control" id="major" name="major" value="{{ students.0.major }}">
+                  </div>
+      
+                  <button class="btn custom-button" type="submit">Save Changes</button>
+                  <a href="{% url 'profile' %}" class="btn custom-button" style="background-color:darkgrey;">Cancel</a>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<div class="col-md-6 col-lg-7 col-xl-8 scrollable"  id="message-wrapper">
+  
+  <h4 class="font-weight-bold  mt-3 text-center">{{user_object.get_full_name}}</h4>
+  <div class="custom-scrollbar-css p-2">
+  <ul class="list-unstyled" id="chat-body">
+    
+      {% for message in messages %}
+      <!--check user-->
+      {% if message.sender.username == request.user.username %}
+      <li class="d-flex justify-content-end align-items-top mb-3">
+        <div class="message card text-white align-items-top"  style= " background-color: #58bcf6bd;">
+          <div class="card-body d-flex flex-column pt-1 pb-0">
+            <p class=" sent fw-bold ">{{message.message}}</p>
+            <p class="sent small">{{message.timestamp}} </p>
+          </div>
+        </div>
+      </li>
+      {% else %}
+      <li class="d-flex justify-content-start mb-4">
+        <div class="message card text-white" style= "background-color: #aa91f4bd;">
+          <div class="card-body d-flex flex-column pt-1 pb-0">
+            <p class=" fw-bold">{{message.message}}</p>
+            <p class="small fst-italic" >{{message.timestamp}} </p>
+          </div>
+        </div>
+      </li>
+    {% endif %} {% endfor %}
+  <!--silly silly-->
+  </ul>
+  
+  </div>
+  <div
+    class="text-muted d-flex justify-content-start align-items-center pe-3 pt-3 mt-2 mb-2 message-control"
+  >
+
+    
+    <textarea
+      placeholder="Type message"
+      class="form-control form-control-lg"
+      id="message-body"
+      rows="1"
+    ></textarea>
+
+    
+    
+    <a class="ms-3" id="send-message-btn" title="Send">
+      <span class="bi bi-send"></span>
+    </a>
+  </div>
+</div>

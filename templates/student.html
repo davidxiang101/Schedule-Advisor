@@ -1,0 +1,69 @@
+{% load socialaccount %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Scheduler</title>
+
+    <!-- Bootstrap core CSS -->
+    {% load static %}
+    {# Load the tag library #}
+    {% load bootstrap5 %}
+
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    <link href="{% static 'login/styles.css' %}" rel="stylesheet">
+</head>
+
+{% include 'nav.html' %}
+
+<body>
+    <section class="hero">
+        <div class="hero-text mt-5">
+            <h1>Student Scheduler</h1>
+            <p>Welcome, {{ user.username }}!</p>
+        </div>
+    </section>
+    <section class="welcome-section" style="padding-bottom:50px;">
+        <div class="container">
+            <div class="row" style="text-align: center;">
+                <div class="col-md-4" style="padding-right:75px; padding-left:75px;">
+                    <div class="welcome-card ">
+                        <div style="text-align: center;"><img src="{% static "images/clipboard.png" %}" width="100" height="100"></div>
+                        <br>
+                        <h3>Plan Ahead</h3>
+                        <p>Efficiently organize your classes and events with our easy-to-use scheduler.</p>
+                        <a href="/search" class="btn custom-button mt-4">Search for Classes</a>
+                    </div>
+                </div>
+                <div class="col-md-4" style="padding-right:55px; padding-left:55px;">
+                    <div class="welcome-card">
+                        <div style="text-align: center;"><img src="{% static "images/books.png" %}" width="100" height="100"></div>
+                        <br>
+                        <h3>Manage Schedules</h3>
+                        <p>Keep track of multiple schedules and display an example schedule in the calendar page.</p>
+                        <a href="/cal" class="btn custom-button mt-4">View Calendar</a>
+                    </div>
+                </div>
+                <div class="col-md-4" style="padding-right:75px; padding-left:75px;">
+                    <div class="welcome-card">
+                        <div style="text-align: center;"><img src="{% static "images/communicate.png" %}" width="100" height="100"></div>
+                        <br>
+                        <h3>Stay Connected</h3>
+                        <p>Send your calendar to your advisor directly for faster approval.</p>
+                        <a href="/chat" class="btn custom-button mt-4">Chat</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+</body>
+
+</html>

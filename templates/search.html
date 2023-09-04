@@ -1,0 +1,143 @@
+{% load socialaccount %}
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Scheduler</title>
+
+    <!-- Bootstrap core CSS -->
+    {% load static %}
+    {# Load the tag library #}
+    {% load bootstrap5 %}
+
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{% static 'search/searchStyle.css' %}">
+</head>
+
+
+{% include 'nav.html' %}
+
+<body class="text-center" style="margin-bottom:100px;">
+    <div class="jumbotron feature">
+        <div class="container">
+            <h1>Search for a class:</h1>
+            <p>Search by department, class name, or catalog number.</p>
+        </div>
+    </div>
+
+
+    <div class="cover-container d-flex p-0 mx-5 flex-column justify-content-center">
+        <div role="main">
+            <div class="container" style="padding:25px;">
+                <form action="class" method="POST"> 
+                    {% csrf_token %}
+                    <div class="input-group-btn sem-dept" style="padding-bottom: 30px;">
+                        <select name="subject" id="subject" class="btn btn-default dropdown-toggle" data-toggle="dropdown" >
+                            <option value="" selected>Subject</option>
+                            {% if depts %}
+                            {% for dept in depts %}
+                                <option value="{{ dept.subject }}">{{ dept.descr }}</option>
+                            {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+                    <div class="field field_v1">
+                        <label class="ha-screen-reader">Course</label>
+                        <input type="text" name="descr" id="descr" class="field__input form-control" placeholder="e.g. Machine Learning">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Course Name</span>
+                        </span>
+                    </div>
+                    <div class="field field_v1">
+                        <label class="ha-screen-reader">Course Number</label>
+                        <input type="text" name="catalog_nbr" id="catalog_nbr" class="field__input form-control" placeholder="e.g. 4501">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Course Number</span>
+                        </span>
+                    </div>
+                    <div style="padding-top:50px">
+                        <button class="btn new-button" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+            <ul class="list-group" style="padding-top: 50px;">
+                {% if classes %}
+                <table class="justify-content-center">
+                <thead>
+                    <tr>
+                        <th><em>Course</em></th>
+                        <th><em>Class ID</em></th>
+                        <th><em>Times</em></th>
+                        <th><em>Location</em></th>
+                        <th><em>Instructor</em></th>
+                        {% if advisorCheck == False %}
+                        <th></th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                {% for class in classes %}
+                <tr>
+                    <td>{{ class.descr }}</td>
+                    <td>
+                        <p>{{ class.subject }} {{ class.catalog_nbr }}</p>
+                    </td>
+                    <td>
+                        {% for meeting in class.meetings %}
+                        {% if meeting.days != '-'%}
+                            <p>{{ meeting.days}}</p>
+                            {% if meeting.start_time != ''%}
+                                <p>{{ meeting.start_time|slice:":2"}}:{{ meeting.start_time|slice:"3:5"}} - {{ meeting.end_time|slice:":2"}}:{{ meeting.end_time|slice:"3:5"}}</p>
+                            {% endif %}
+                        {% else %}
+                            <p>Asynchronous</p>
+                        {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for meeting in class.meetings %}
+                        <p>{{ meeting.facility_descr}}</p>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for instructor in class.instructors %}
+                        {{ instructor.name}}
+                        {% endfor %}
+                    </td>
+                    {% if advisorCheck == False %}
+                    <td>
+                        {% if class.cart %}
+                        <img src="{% static "images/checkmark.png" %}" width="55" height="60" title="Class Already Added to Cart">  
+                        {% else %}
+                        <form action="add" method="POST"> 
+                            {% csrf_token %}
+                            <input type="hidden" id="subject" name="subject" value="{{class.subject}}" />
+                            <input type="hidden" id="catalog_nbr" name="catalog_nbr" value={{class.catalog_nbr}} />
+                            <input type="hidden" id="descr" name="descr" value="{{ class.descr }}" />
+                            <input type="hidden" id="crse_id" name="crse_id" value="{{ class.crse_id }}" />
+                            <input type="hidden" id="class_section" name="class_section" value="{{ class.class_section }}" />
+                            <input type="hidden" id="days" name="days" value="{% for meeting in class.meetings %} {{ meeting.days}}, {% endfor %}" />
+                            <input type="hidden" id="start_time" name="start_time" value="{% for meeting in class.meetings %} {{ meeting.start_time}}, {% endfor %}" />
+                            <input type="hidden" id="end_time" name="end_time" value="{% for meeting in class.meetings %} {{ meeting.end_time}}, {% endfor %}" />
+                            <button class="btn new-button" title="Add Class to Cart" type="submit">+</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+                </table>
+                {% elif not classes and search %}
+                    <h3 class="text-center my-4">There are no classes that match those parameters.</h3>
+                {% endif %}
+            </ul>
+        </div>
+
+</body>
+
+</html>

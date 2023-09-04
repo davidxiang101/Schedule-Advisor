@@ -1,0 +1,60 @@
+{% load socialaccount %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Scheduler</title>
+
+    <!-- Bootstrap core CSS -->
+    {% load static %}
+    {# Load the tag library #}
+    {% load bootstrap5 %}
+
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    <link href="{% static 'login/styles.css' %}" rel="stylesheet">
+</head>
+
+{% include 'nav.html' %}
+
+<body>
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Schedule Reviewer</h1>
+            <p>Welcome, {{ user.username }}!</p>
+        </div>
+    </section>
+    <section class="welcome-section" style="padding-bottom:50px;">
+        <div class="container">
+            <div class="row" style="text-align: center;">
+                <div class="col" style="padding-right:150px; padding-left:150px;">
+                    <div class="welcome-card ">
+                        <div style="text-align: center;"><img src="{% static "images/clipboard.png" %}" width="100" height="100"></div>
+                        <br>
+                        <h3>Review Schedules</h3>
+                        <p>View, approve, or reject student schedules with the click of a button.</p>
+                        <a href="/tools" class="btn custom-button mt-4">View Schedules</a>
+                    </div>
+                </div>
+                <div class="col" style="padding-right:150px; padding-left:150px;">
+                    <div class="welcome-card">
+                        <div style="text-align: center;"><img src="{% static "images/communicate.png" %}" width="100" height="100"></div>
+                        <br>
+                        <h3>Stay Connected</h3>
+                        <p>Give students personalized feedback on their schedules and answer questions easily.</p>
+                        <a href="/chat" class="btn custom-button mt-4">Chat</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
