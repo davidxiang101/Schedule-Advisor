@@ -53,7 +53,7 @@ The Schedule Advisor Web App is designed to optimize and provide intelligent rec
 
 ## Installation and Setup
 
-\`\`\`bash
+```bash
 # Clone repository
 git clone https://github.com/davidxiang101/Schedule-Advisor.git
 # Change directory
@@ -64,7 +64,7 @@ virtualenv venv
 source venv/bin/activate
 # Install dependencies
 pip install -r requirements.txt
-\`\`\`
+```
 
 ---
 
